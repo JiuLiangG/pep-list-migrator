@@ -1,0 +1,2 @@
+0:{"a":"$@1","q":"","i":false}
+1:[{"id":1001,"name":"Reading list","isDefault":1,"containsDocument":true},{"id":1002,"name":"test","isDefault":0,"containsDocument":false}]

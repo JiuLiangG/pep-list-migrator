@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "PEP 阅读清单迁移工具（非官方）"
+  },
+  "extDescription": {
+    "message": "导出 PEP 旧清单，并导入到新版阅读列表。"
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN" translate="no" class="notranslate">
+<head>
+  <meta charset="utf-8">
+  <meta name="google" content="notranslate">
+  <title>PEP 阅读清单迁移工具（非官方）</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <div class="switches">
+      <button id="site" class="tool" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9a8 6 0 0 1 15.5-1M20 3.5V8h-4.5M20 15a8 6 0 0 1-15.5 1M4 20.5V16h4.5"/></svg><span>切换到新版</span></button>
+      <div id="lang" class="lang" role="radiogroup" aria-label="语言" data-i18n-aria="lang.label" data-active="zh">
+        <button type="button" role="radio" data-lang="zh" lang="zh-CN">中文</button>
+        <button type="button" role="radio" data-lang="en" lang="en">EN</button>
+      </div>
+    </div>
+    <section class="export">
+      <h1 data-i18n="export.title">导出清单</h1>
+      <div class="row">
+        <div class="segmented" role="radiogroup" aria-label="导出哪个清单" data-i18n-aria="export.which">
+          <label><input id="export-favorites" type="radio" name="export-source" checked><span>Favorites</span></label>
+          <label><input id="export-readLater" type="radio" name="export-source"><span>Read Later</span></label>
+        </div>
+        <button id="export" class="primary" type="button" data-i18n="export.button">导出</button>
+      </div>
+      <p id="export-status" class="status" aria-live="polite"></p>
+    </section>
+    <section class="import">
+      <h1 data-i18n="import.title">导入清单</h1>
+      <div class="row">
+        <button id="pick-file" type="button" data-i18n="import.pickFile">选择文件</button>
+        <input id="file" type="file" accept="application/json,.json" multiple hidden>
+        <div id="sources"></div>
+      </div>
+      <div class="row">
+        <button id="load-lists" type="button" disabled data-i18n="lists.load">读取书单</button>
+        <div id="list-picker"></div>
+      </div>
+      <p id="import-status" class="status" aria-live="polite"></p>
+      <div id="tools" class="tools" hidden>
+        <button id="select-all" type="button" data-i18n="tools.all">全选</button>
+        <button id="select-none" type="button" data-i18n="tools.none">全不选</button>
+        <button id="import" class="primary" type="button" disabled data-i18n="tools.import">导入</button>
+      </div>
+      <ul id="rows"></ul>
+    </section>
+    <footer class="notice" data-i18n="notice">本扩展非 PEP 官方产品，由 GJL 个人开发，供学习研究使用。</footer>
+  </main>
+  <script src="i18n.js"></script>
+  <script src="import-model.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

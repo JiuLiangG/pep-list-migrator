@@ -1,0 +1,219 @@
+/*
+  干净的工具界面：白底、深灰文字、单一强调色（墨色，不带色相）。
+  - 字号与行高：Ant Design 字体规范，主字号 14 / 行高 22，字号只用 12、14、15 三种，字重 400 / 500 / 600。
+  - 间距：4 / 8 的倍数（8、12、16、24）。
+  - 颜色：Tailwind slate 灰阶；主文字 #0f172a（白底 17.9:1），次要文字 #475569（7.6:1）；
+    状态色用深一档，保证 12px 小字也过 WCAG AA：成功 #047857（5.5:1）、警告 #b45309（5.0:1）、错误 #dc2626（4.8:1）。
+*/
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --bg: #ffffff;
+  --bg-subtle: #f8fafc;
+  --hover: #f1f5f9;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --line-soft: #eef2f6;
+  --track: #f1f5f9;
+  --accent: #003153;
+  --accent-hover: #0d4168;
+  --option-active: #0a3d62;
+  --ok: #047857;
+  --warn: #b45309;
+  --bad: #dc2626;
+  --radius: 6px;
+}
+html, body { height: 100%; }
+body {
+  margin: 0;
+  min-width: 320px;
+  display: flex;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--bg);
+  font: 14px/22px var(--font);
+  -webkit-font-smoothing: antialiased;
+  accent-color: var(--accent);
+}
+main { position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0; width: 100%; padding: 18px 20px 0; }
+section.import { flex: 1; display: flex; flex-direction: column; min-height: 0; margin-top: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+h1 { margin: 0 0 16px; font: 600 15px/22px var(--font); }
+p { margin: 0; }
+.row { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.row + .row { margin-top: 12px; }
+
+button {
+  flex: none;
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: 500 14px/1 var(--font);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--hover); }
+button:focus-visible, .segmented input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+button.primary:hover:not(:disabled) { border-color: var(--accent-hover); background: var(--accent-hover); }
+button:disabled { cursor: default; opacity: 0.4; }
+/* 右上角：左边是网站版本按钮，右边是语言切换，中间一条细竖线；和“导出清单”标题同一行居中对齐，右边缘对齐正文。
+   网站按钮只显示“点了会去哪”（切换到新版 / 切换到旧版），前面一个切换图标（上下两段扁弧对转，表示在两版之间来回）；外面套一个和语言切换同高、同底色的胶囊，
+   平时是灰字，悬停时字变深（和语言切换里没选中的那一边一样）。 */
+.switches { position: absolute; top: 17px; right: 20px; display: flex; align-items: center; }
+.switches .tool::after { content: ""; position: absolute; right: -7px; top: 5px; width: 1px; height: 12px; background: var(--line-strong); }
+.tool { position: relative; display: inline-flex; align-items: center; gap: 4px; height: 22px; margin-right: 7px; padding: 0 9px 0 8px; border: 0; border-radius: 999px; background: var(--track); box-shadow: none; color: var(--muted); font: 500 11px/22px var(--font); }
+.tool:hover:not(:disabled) { background: var(--track); color: var(--text); }
+.tool svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+/* 语言切换：照 Ant Design 分段控制器（Segmented）的小号胶囊形状，配色同下面的 Favorites / Read Later 切换。
+   浅灰轨道上一个白色滑块，点另一边时滑块滑过去，再刷新窗口（只在点击时加动画，打开窗口时滑块直接停在当前语言上，不会从“中文”滑到“EN”）。比网站按钮矮一点、字小一号，离竖线 6px。 */
+.lang { position: relative; display: flex; margin-left: 6px; padding: 2px; border-radius: 999px; background: var(--track); }
+.lang::before {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 28px; height: 18px; border-radius: 999px;
+  background: var(--surface); box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1), 0 0 0 1px var(--line);
+}
+.lang[data-switching]::before { transition: transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }
+.lang[data-active="en"]::before { transform: translateX(28px); }
+.lang button { position: relative; width: 28px; height: 18px; padding: 0; border: 0; border-radius: 999px; background: none; box-shadow: none; color: var(--muted); font: 500 11px/18px var(--font); }
+.lang button:hover:not(:disabled) { background: none; color: var(--text); }
+.lang button[aria-checked="true"] { color: var(--text); cursor: default; }
+.lang button:disabled { opacity: 1; }
+.lang:has(button:disabled) { opacity: 0.4; }
+
+.export .row { justify-content: space-between; }
+.segmented { display: inline-flex; height: 32px; padding: 2px; border-radius: 6px; background: var(--track); }
+.segmented label { position: relative; display: flex; }
+.segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.segmented span { display: flex; align-items: center; padding: 0 14px; border-radius: var(--radius); color: var(--muted); font-weight: 500; cursor: pointer; }
+.segmented input:checked + span { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1), 0 0 0 1px var(--line); }
+
+/* 状态行是操作结果：普通消息用正文色，提醒用橙色，出错用红色（与列表行标记同色） */
+.status { margin-top: 12px; color: var(--text); font-size: 12px; line-height: 20px; }
+#export-status { min-height: 40px; }
+.status[data-tone="warn"] { color: var(--warn); }
+.status[data-tone="error"] { color: var(--bad); }
+#import-status { margin-top: 24px; }
+#import-status:empty { display: none; } /* 还没有结果时不占位 */
+/* 底部声明：贴着窗口底边的浅灰条，上方一条细线，灰色小字，不抢按钮的注意力 */
+.notice { flex: none; margin: 16px -20px 0; padding: 2px 20px; border-top: 1px solid var(--line); background: var(--bg-subtle); color: #9fa2aa; font-size: 10px; line-height: 14px; text-align: center; } /* 颜色同禁用按钮的文字（主文字色 40% 透明度叠在白底上） */
+.status.busy::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 8px;
+  background: linear-gradient(var(--accent), var(--accent)) 0 0 / var(--progress, 0%) 100% no-repeat, var(--track);
+  transition: background-size 0.2s ease;
+}
+
+#sources { display: flex; flex-wrap: wrap; column-gap: 16px; row-gap: 4px; min-width: 0; }
+#sources label, #list-picker label { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+#sources .count { color: var(--muted); font-size: 12px; }
+#list-picker { flex: 1; min-width: 0; color: var(--muted); }
+#list-picker p { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* 书单下拉：用 Chrome 的可自定义下拉（appearance: base-select），弹出菜单也跟界面一致；旧版 Chrome 退回系统样式。 */
+select {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: 14px var(--font);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  cursor: pointer;
+}
+select:hover:not(:disabled) { border-color: #94a3b8; }
+select:focus { outline: none; }
+select:focus-visible, select:open { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 49, 83, 0.12); }
+select:disabled { cursor: default; opacity: 0.4; }
+@supports (appearance: base-select) {
+  select, ::picker(select) { appearance: base-select; }
+  select { display: flex; align-items: center; gap: 8px; }
+  select::picker-icon {
+    content: "";
+    width: 7px;
+    height: 7px;
+    margin: -4px 2px 0 auto;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    rotate: 45deg;
+    transition: rotate 0.15s ease, margin 0.15s ease;
+  }
+  select:open::picker-icon { margin-top: 4px; rotate: 225deg; }
+  ::picker(select) {
+    margin-top: 4px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.06);
+  }
+  option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    color: var(--text);
+    font: 14px/22px var(--font);
+    cursor: pointer;
+  }
+  option::checkmark { order: 1; margin-left: auto; color: var(--accent); }
+  option:hover, option:focus-visible { outline: none; background: var(--option-active); color: #fff; }
+  option:hover::checkmark, option:focus-visible::checkmark { color: #fff; }
+}
+input[type="checkbox"] { width: 14px; height: 14px; margin: 0; }
+
+.tools { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.tools button:not(.primary) { height: 28px; padding: 0 12px; font-size: 12px; }
+.tools #import { margin-left: auto; }
+
+/* 列表做成浮起的卡片（参考 Notion 弹层）：不靠硬边框，靠一圈极淡描边加柔和阴影；行之间画细线，悬停给底色。 */
+ul {
+  flex: 1; min-height: 80px; margin: 12px 0 0; padding: 0; list-style: none; overflow: auto;
+  border-radius: 12px; background: var(--surface);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.07), 0 2px 4px rgba(15, 23, 42, 0.04), 0 8px 20px -6px rgba(15, 23, 42, 0.10);
+  scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
+}
+ul:empty { display: none; }
+li { position: relative; display: flex; align-items: center; padding: 10px 16px; }
+li + li::before { content: ""; position: absolute; top: 0; left: 42px; right: 0; border-top: 1px solid var(--line); }
+li:hover { background: var(--bg-subtle); }
+label.row { display: flex; align-items: flex-start; gap: 12px; width: 100%; min-width: 0; margin: 0; cursor: pointer; }
+label.row input { flex: none; margin-top: 4px; }
+.text { flex: 1; min-width: 0; }
+.title, .meta { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.title { font-weight: 500; }
+.detail { display: flex; gap: 8px; min-width: 0; margin-top: 2px; color: var(--muted); font-size: 12px; line-height: 18px; }
+.meta { flex: 1; }
+.mark { flex: none; font-weight: 500; }
+.mark[data-kind="done"] { color: var(--ok); }
+.mark[data-kind="pending"] { color: var(--warn); }
+.mark[data-kind="failed"] { color: var(--bad); }
+li:has(input:disabled) .title { color: var(--muted); }
+body.importing #rows { opacity: 0.55; }
+
+.tip {
+  position: fixed;
+  z-index: 10;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.06);
+  font-size: 12px;
+  line-height: 20px;
+  pointer-events: none;
+}
+.tip-title { color: var(--text); font-weight: 500; }
+.tip-meta { color: var(--muted); }

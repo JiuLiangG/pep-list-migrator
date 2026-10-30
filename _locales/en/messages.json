@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "PEP List Migrator (Unofficial)"
+  },
+  "extDescription": {
+    "message": "Export your lists from the previous PEP site and import them into the new one."
+  }
+}
