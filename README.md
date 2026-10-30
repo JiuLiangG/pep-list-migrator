@@ -20,10 +20,10 @@ PEP launches its new website on November 2, 2026. According to PEP's announcemen
 
 The extension is not in the Chrome Web Store. Works in Chromium-based browsers (Chrome, Brave, Edge).
 
-1. Go to [Releases](https://github.com/JiuLiangG/pep-list-migrator/releases/latest), download `pep-list-migrator-<version>.zip` and unzip it.
+1. Go to [Releases](https://github.com/JiuLiangG/pep-list-migrator/releases/latest), download `pep-list-migrator-<version>.zip` and unzip it. On Windows, right-click the zip and choose **Extract All**; double-clicking only opens it.
 2. Open `chrome://extensions` (Brave: `brave://extensions`, Edge: `edge://extensions`).
 3. Turn on **Developer mode**.
-4. Click **Load unpacked** and choose the unzipped `pep-list-migrator` folder (the one that contains `manifest.json`).
+4. Click **Load unpacked** and choose the unzipped `pep-list-migrator` folder (the one that contains `manifest.json`). On Windows, Extract All adds an outer folder, so the path looks like `pep-list-migrator-<version>\pep-list-migrator`: choose the inner one.
 5. Optional: pin the extension to the toolbar from the puzzle-piece menu.
 
 Keep the folder: the browser loads the extension from it.
@@ -101,10 +101,10 @@ PEP 新网站于 2026 年 11 月 2 日上线。官网公告说，旧网站收藏
 
 本扩展没有上架 Chrome 应用商店，适用于 Chromium 内核的浏览器（Chrome、Brave、Edge）。
 
-1. 打开 [Releases](https://github.com/JiuLiangG/pep-list-migrator/releases/latest)，下载 `pep-list-migrator-<版本号>.zip` 并解压。
+1. 打开 [Releases](https://github.com/JiuLiangG/pep-list-migrator/releases/latest)，下载 `pep-list-migrator-<版本号>.zip` 并解压。Windows 上请右键 zip 选**全部解压缩**，双击只是打开、没有解压。
 2. 打开 `chrome://extensions`（Brave 为 `brave://extensions`，Edge 为 `edge://extensions`）。
 3. 打开**开发者模式**。
-4. 点**加载已解压的扩展程序**，选择解压出来的 `pep-list-migrator` 文件夹（里面有 `manifest.json`）。
+4. 点**加载已解压的扩展程序**，选择解压出来的 `pep-list-migrator` 文件夹（里面有 `manifest.json`）。Windows 的“全部解压缩”会多套一层文件夹，路径类似 `pep-list-migrator-<版本号>\pep-list-migrator`，请选里面那层。
 5. 可选：在工具栏的拼图图标里把扩展固定到工具栏。
 
 请保留这个文件夹，浏览器是从这里加载扩展的。
