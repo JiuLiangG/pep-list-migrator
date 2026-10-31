@@ -20,6 +20,8 @@ PEP launches its new website on November 2, 2026. According to PEP's announcemen
 
 The extension is not in the Chrome Web Store. Works in Chromium-based browsers (Chrome, Brave, Edge).
 
+**Video walkthrough** (about 3 minutes, Chinese and English captions): [download pep-list-migrator-tutorial.mp4](https://github.com/JiuLiangG/pep-list-migrator/releases/download/v1.0.0/pep-list-migrator-tutorial.mp4)
+
 1. Go to [Releases](https://github.com/JiuLiangG/pep-list-migrator/releases/latest), download `pep-list-migrator-<version>.zip` and unzip it. On Windows, right-click the zip and choose **Extract All**; double-clicking only opens it.
 2. Open `chrome://extensions` (Brave: `brave://extensions`, Edge: `edge://extensions`).
 3. Turn on **Developer mode**.
@@ -100,6 +102,8 @@ PEP 新网站于 2026 年 11 月 2 日上线。官网公告说，旧网站收藏
 ### 安装
 
 本扩展没有上架 Chrome 应用商店，适用于 Chromium 内核的浏览器（Chrome、Brave、Edge）。
+
+**讲解视频**（约 3 分钟，中英文字幕）：[下载 pep-list-migrator-tutorial.mp4](https://github.com/JiuLiangG/pep-list-migrator/releases/download/v1.0.0/pep-list-migrator-tutorial.mp4)
 
 1. 打开 [Releases](https://github.com/JiuLiangG/pep-list-migrator/releases/latest)，下载 `pep-list-migrator-<版本号>.zip` 并解压。Windows 上请右键 zip 选**全部解压缩**，双击只是打开、没有解压。
 2. 打开 `chrome://extensions`（Brave 为 `brave://extensions`，Edge 为 `edge://extensions`）。
